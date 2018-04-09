@@ -310,7 +310,7 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         case .custom:
             navigationItem.titleView = nil
             title = customVC?.title
-            navigationItem.rightBarButtonItem = nil
+            navigationItem.rightBarButtonItem = customVC?.navigationItem.rightBarButtonItem
         }
     }
     
