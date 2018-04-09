@@ -48,11 +48,13 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         case library
         case camera
         case video
+        case custom
     }
 
     private var libraryVC: YPLibraryVC?
     private var cameraVC: YPCameraVC?
     private var videoVC: YPVideoVC?
+    private var customVC: UIViewController?
     
     var mode = Mode.camera
     
@@ -95,6 +97,10 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 self.didSelectVideo?(videoURL)
             }
         }
+
+        if configuration.screens.contains(.custom) {
+            customVC = configuration.customViewController
+        }
     
         // Show screens
         var vcs = [UIViewController]()
@@ -112,6 +118,10 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 if let videoVC = videoVC {
                     vcs.append(videoVC)
                 }
+            case .custom:
+                if let customVC = customVC {
+                    vcs.append(customVC)
+                }
             }
         }
         controllers = vcs
@@ -125,6 +135,8 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 mode = .camera
             case .video:
                 mode = .video
+            case .custom:
+                mode = .custom
             }
         }
         
@@ -161,7 +173,7 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         case is YPVideoVC:
             return .video
         default:
-            return .camera
+            return .custom
         }
     }
     
@@ -192,6 +204,8 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             cameraVC?.stopCamera()
         case .video:
             videoVC?.stopCamera()
+        default:
+            break
         }
     }
     
@@ -203,6 +217,8 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             cameraVC?.tryToStartCamera()
         case .video:
             videoVC?.tryToStartCamera()
+        default:
+            break
         }
     }
     
@@ -290,6 +306,10 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         case .video:
             navigationItem.titleView = nil
             title = videoVC?.title
+            navigationItem.rightBarButtonItem = nil
+        case .custom:
+            navigationItem.titleView = nil
+            title = customVC?.title
             navigationItem.rightBarButtonItem = nil
         }
     }

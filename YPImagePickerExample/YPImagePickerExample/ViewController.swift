@@ -76,7 +76,10 @@ class ViewController: UIViewController {
 //
 //        /// Defines which screens are shown at launch, and their order.
 //        /// Default value is `[.library, .photo]`
-        config.screens = [.library, .photo, .video]
+        config.screens = [.library, .photo, .custom]
+        let viewController = UIViewController()
+        viewController.title = "TEST"
+        config.customViewController = viewController
 //
 //        /// Defines the time limit for recording videos.
 //        /// Default is 30 seconds.
