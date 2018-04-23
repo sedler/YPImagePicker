@@ -251,15 +251,9 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         
         let label = UILabel()
         label.text = aTitle
-        label.textColor = .black
-        
-        if let navBarTitleFont = UINavigationBar.appearance().titleTextAttributes?[.font] as? UIFont {
-            // Use custom font if set by user.
-            label.font = navBarTitleFont
-        } else {
-            // Use standard font by default.
-            label.font = UIFont.boldSystemFont(ofSize: 17)
-        }
+        let titleTextAttributes = UINavigationBar.appearance().titleTextAttributes
+        label.textColor = titleTextAttributes?[.foregroundColor] as? UIColor ?? .black
+        label.font = titleTextAttributes?[.font] as? UIFont ?? UIFont.boldSystemFont(ofSize: 17)
         
         let arrow = UIImageView()
         arrow.image = imageFromBundle("yp_arrow")
