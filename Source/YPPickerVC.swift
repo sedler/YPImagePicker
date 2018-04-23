@@ -256,7 +256,8 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         label.font = titleTextAttributes?[.font] as? UIFont ?? UIFont.boldSystemFont(ofSize: 17)
         
         let arrow = UIImageView()
-        arrow.image = imageFromBundle("yp_arrow")
+        arrow.image = imageFromBundle("yp_arrow").withRenderingMode(.alwaysTemplate)
+        arrow.tintColor = label.textColor
         
         let button = UIButton()
         button.addTarget(self, action: #selector(navBarTapped), for: .touchUpInside)
