@@ -219,39 +219,47 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         }
         present(navVC, animated: true, completion: nil)
     }
-    
+
     func setTitleViewWithTitle(aTitle: String) {
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
-        
+
         let label = UILabel()
         label.text = aTitle
+        // Use standard font by default.
+        label.font = UIFont.boldSystemFont(ofSize: 17)
 
-        let titleTextAttributes = UINavigationBar.appearance().titleTextAttributes
-        label.textColor = titleTextAttributes?[.foregroundColor] as? UIColor ?? .black
-        label.font = titleTextAttributes?[.font] as? UIFont ?? UIFont.boldSystemFont(ofSize: 17)
-        
+        // Use custom font if set by user.
+        if let navBarTitleFont = UINavigationBar.appearance().titleTextAttributes?[.font] as? UIFont {
+            // Use custom font if set by user.
+            label.font = navBarTitleFont
+        }
+        // Use custom textColor if set by user.
+        if let navBarTitleColor = UINavigationBar.appearance().titleTextAttributes?[.foregroundColor] as? UIColor {
+            label.textColor = navBarTitleColor
+        }
+
         let arrow = UIImageView()
-        arrow.image = imageFromBundle("yp_arrow").withRenderingMode(.alwaysTemplate)
+        arrow.image = YPConfig.icons.arrowDownIcon.withRenderingMode(.alwaysTemplate)
         arrow.tintColor = label.textColor
-        
+
         let button = UIButton()
         button.addTarget(self, action: #selector(navBarTapped), for: .touchUpInside)
         button.setBackgroundColor(UIColor.white.withAlphaComponent(0.5), forState: .highlighted)
-        
+
         titleView.sv(
             label,
             arrow,
             button
         )
-        
+
         label.firstBaselineAnchor.constraint(equalTo: titleView.bottomAnchor, constant: -14).isActive = true
-        
+
         button.fillContainer()
-        
+
         |-(>=8)-label.centerHorizontally()-arrow-(>=8)-|
         align(horizontally: label-arrow)
-        
+
         titleView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         navigationItem.titleView = titleView
     }
