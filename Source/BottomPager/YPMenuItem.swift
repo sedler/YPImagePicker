@@ -47,11 +47,11 @@ final class YPMenuItem: UIView {
     }
     
     func selectedColor() -> UIColor {
-        return UIColor(r: 38, g: 38, b: 38)
+        return UIColor(red:0.35, green:0.22, blue:0.53, alpha:1.00)
     }
     
     func unselectedColor() -> UIColor {
-        return UIColor(r: 153, g: 153, b: 153)
+        return UIColor(red:0.61, green:0.60, blue:0.66, alpha:1.00)
     }
     
     func select() {
