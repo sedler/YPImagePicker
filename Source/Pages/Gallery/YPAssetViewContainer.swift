@@ -23,7 +23,7 @@ class YPAssetViewContainer: UIView {
     public var isShown = true
     
     private let spinner = UIActivityIndicatorView(style: .white)
-    private var shouldCropToSquare = false
+    private var shouldCropToSquare = true
     private var isMultipleSelection = false
 
     override func awakeFromNib() {
@@ -89,14 +89,11 @@ class YPAssetViewContainer: UIView {
     @objc public func squareCropButtonTapped() {
         if let zoomableView = zoomableView {
             let z = zoomableView.zoomScale
-            if z >= 1 && z < zoomableView.squaredZoomScale {
-                shouldCropToSquare = true
-            } else {
-                shouldCropToSquare = false
-            }
+            shouldCropToSquare = (z >= 1 && z < zoomableView.squaredZoomScale)
         }
         zoomableView?.fitImage(shouldCropToSquare, animated: true)
     }
+    
     
     public func refreshSquareCropButton() {
         if onlySquare {
@@ -107,6 +104,9 @@ class YPAssetViewContainer: UIView {
                 squareCropButton.isHidden = isImageASquare
             }
         }
+        
+        let shouldFit = YPConfig.library.onlySquare ? true : shouldCropToSquare
+        zoomableView?.fitImage(shouldFit)
     }
     
     // MARK: - Multiple selection

@@ -10,7 +10,7 @@ import Foundation
 import Stevia
 import Photos
 
-protocol ImagePickerDelegate {
+protocol ImagePickerDelegate: AnyObject {
     func noPhotos()
 }
 
@@ -19,7 +19,7 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     let albumsManager = YPAlbumsManager()
     var shouldHideStatusBar = false
     var initialStatusBarHidden = false
-    var imagePickerDelegate: ImagePickerDelegate?
+    weak var imagePickerDelegate: ImagePickerDelegate?
     
     override public var prefersStatusBarHidden: Bool {
         return (shouldHideStatusBar || initialStatusBarHidden) && YPConfig.hidesStatusBar
@@ -294,10 +294,8 @@ public class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             navigationItem.rightBarButtonItem?.tintColor = YPConfig.colors.tintColor
             
             // Disable Next Button until minNumberOfItems is reached.
-            let minNumberOfItems = YPConfig.library.minNumberOfItems
-            if minNumberOfItems > 1 {
-                navigationItem.rightBarButtonItem?.isEnabled = libraryVC!.selection.count >= minNumberOfItems
-            }
+            navigationItem.rightBarButtonItem?.isEnabled = libraryVC!.selection.count >= YPConfig.library.minNumberOfItems
+
         case .camera:
             navigationItem.titleView = nil
             title = cameraVC?.title
@@ -376,6 +374,7 @@ extension YPPickerVC: YPLibraryViewDelegate {
         
         v.header.bottomConstraint?.constant = enabled ? offset : 0
         v.layoutIfNeeded()
+        updateUI()
     }
     
     public func noPhotosForOptions() {

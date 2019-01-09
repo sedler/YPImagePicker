@@ -70,13 +70,16 @@ public struct YPImagePickerConfiguration {
     public var targetImageSize = YPImageSize.original
     
     /// Adds a Overlay View to the camera
-    public var overlayView = UIView()
+    public var overlayView: UIView?
     
     /// Defines if the status bar should be hidden when showing the picker. Default is true
     public var hidesStatusBar = true
 
     public var customViewController: UIViewController?
     
+    /// Defines if the bottom bar should be hidden when showing the picker. Default is false.
+    public var hidesBottomBar = false
+
     /// Defines the preferredStatusBarAppearance
     public var preferredStatusBarStyle = UIStatusBarStyle.default
     
