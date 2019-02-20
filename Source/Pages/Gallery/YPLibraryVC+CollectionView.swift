@@ -74,6 +74,10 @@ extension YPLibraryVC {
     
     /// Adds cell to selection
     func addToSelection(indexPath: IndexPath) {
+        guard indexPath.item >= 0 && indexPath.item < mediaManager.fetchResult.count else {
+            return
+        }
+        
         let asset = mediaManager.fetchResult[indexPath.item]
         selection.append(
             YPLibrarySelection(
