@@ -85,11 +85,11 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
             .addTarget(self,
                        action: #selector(squareCropButtonTapped),
                        for: .touchUpInside)
-        v.assetViewContainer.multipleSelectionButton
-            .addTarget(self,
-                       action: #selector(multipleSelectionButtonTapped),
-                       for: .touchUpInside)
-        
+//        v.assetViewContainer.multipleSelectionButton
+//            .addTarget(self,
+//                       action: #selector(multipleSelectionButtonTapped),
+//                       for: .touchUpInside)
+
         // Forces assetZoomableView to have a contentSize.
         // otherwise 0 in first selection triggering the bug : "invalid image size 0x0"
         // Also fits the first element to the square if the onlySquareFromLibrary = true
@@ -98,9 +98,9 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         }
         
         // Activate multiple selection when using `minNumberOfItems`
-        if YPConfig.library.minNumberOfItems > 1 {
-            multipleSelectionButtonTapped()
-        }
+//        if YPConfig.library.minNumberOfItems > 1 {
+//            multipleSelectionButtonTapped()
+//        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -122,41 +122,41 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
     
     // MARK: - Multiple Selection
 
-    @objc
-    func multipleSelectionButtonTapped() {
-        
-        if !multipleSelectionEnabled {
-            selection.removeAll()
-        }
-        
-        // Prevent desactivating multiple selection when using `minNumberOfItems`
-        if YPConfig.library.minNumberOfItems > 1 && multipleSelectionEnabled {
-            return
-        }
-        
-        multipleSelectionEnabled = !multipleSelectionEnabled
-
-        if multipleSelectionEnabled {
-            if selection.isEmpty {
-                let asset = mediaManager.fetchResult[currentlySelectedIndex]
-                selection = [
-                    YPLibrarySelection(index: currentlySelectedIndex,
-                                       cropRect: v.currentCropRect(),
-                                       scrollViewContentOffset: v.assetZoomableView!.contentOffset,
-                                       scrollViewZoomScale: v.assetZoomableView!.zoomScale,
-                                       assetIdentifier: asset.localIdentifier)
-                ]
-            }
-        } else {
-            selection.removeAll()
-            addToSelection(indexPath: IndexPath(row: currentlySelectedIndex, section: 0))
-        }
-
-        v.assetViewContainer.setMultipleSelectionMode(on: multipleSelectionEnabled)
-        v.collectionView.reloadData()
-        checkLimit()
-        delegate?.libraryViewDidToggleMultipleSelection(enabled: multipleSelectionEnabled)
-    }
+//    @objc
+//    func multipleSelectionButtonTapped() {
+//        
+//        if !multipleSelectionEnabled {
+//            selection.removeAll()
+//        }
+//        
+//        // Prevent desactivating multiple selection when using `minNumberOfItems`
+//        if YPConfig.library.minNumberOfItems > 1 && multipleSelectionEnabled {
+//            return
+//        }
+//        
+//        multipleSelectionEnabled = !multipleSelectionEnabled
+//
+//        if multipleSelectionEnabled {
+//            if selection.isEmpty {
+//                let asset = mediaManager.fetchResult[currentlySelectedIndex]
+//                selection = [
+//                    YPLibrarySelection(index: currentlySelectedIndex,
+//                                       cropRect: v.currentCropRect(),
+//                                       scrollViewContentOffset: v.assetZoomableView!.contentOffset,
+//                                       scrollViewZoomScale: v.assetZoomableView!.zoomScale,
+//                                       assetIdentifier: asset.localIdentifier)
+//                ]
+//            }
+//        } else {
+//            selection.removeAll()
+//            addToSelection(indexPath: IndexPath(row: currentlySelectedIndex, section: 0))
+//        }
+//
+//        v.assetViewContainer.setMultipleSelectionMode(on: multipleSelectionEnabled)
+//        v.collectionView.reloadData()
+//        checkLimit()
+//        delegate?.libraryViewDidToggleMultipleSelection(enabled: multipleSelectionEnabled)
+//    }
     
     // MARK: - Tap Preview
     
