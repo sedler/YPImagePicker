@@ -36,22 +36,22 @@ extension YPLibraryVC {
 //            startMultipleSelection(at: indexPath)
 //        }
 //    }
+//
+//    func startMultipleSelection(at indexPath: IndexPath) {
+//        currentlySelectedIndex = indexPath.row
+//        multipleSelectionButtonTapped()
+//
+//        // Update preview.
+//        changeAsset(mediaManager.fetchResult[indexPath.row])
+//
+//        // Bring preview down and keep selected cell visible.
+//        panGestureHelper.resetToOriginalState()
+//        if !panGestureHelper.isImageShown {
+//            v.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+//        }
+//        v.refreshImageCurtainAlpha()
+//    }
 
-    func startMultipleSelection(at indexPath: IndexPath) {
-        currentlySelectedIndex = indexPath.row
-        multipleSelectionButtonTapped()
-        
-        // Update preview.
-        changeAsset(mediaManager.fetchResult[indexPath.row])
-        
-        // Bring preview down and keep selected cell visible.
-        panGestureHelper.resetToOriginalState()
-        if !panGestureHelper.isImageShown {
-            v.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        }
-        v.refreshImageCurtainAlpha()
-    }
-    
     // MARK: - Library collection view cell managing
     
     /// Removes cell from selection
